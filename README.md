@@ -10,7 +10,7 @@
   </a>
 </p>
 
-> Projeto criado durante o [Hackathon TecBan](https://hackathon.tecban.com.br/)realizado pela [Shawee](https://shawee.io/).
+> Projeto criado durante o [Hackathon TecBan](https://hackathon.tecban.com.br/) realizado pela [Shawee](https://shawee.io/).
 
 ## 🎥 Video
 

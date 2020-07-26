@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: "O email é obrigatório"
+  },
+  access_token: {
+    type: String
   }
 });
 userSchema.plugin(passportLocalMongoose, { usernameField: "email" });

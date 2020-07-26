@@ -4,7 +4,7 @@ var fs = require("fs");
 
 const key = fs.readFileSync(__dirname + "/bank1/certs/client_private_key.key");
 const cert = fs.readFileSync(__dirname + "/bank1/certs/client_certificate.crt");
-const apiAS = async (uri: String, callback: Function) => {
+const apiPAS = async (uri: String, callback: Function) => {
   await req.post(
     {
       uri,
@@ -29,7 +29,34 @@ const apiAS = async (uri: String, callback: Function) => {
     }
   );
 };
-const apiRS = async (uri: String, token: String, callback: Function) => {
+const apiPASAC = async (uri: String, code: String, callback: Function) => {
+  await req.post(
+    {
+      uri,
+      key,
+      cert,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization:
+          "Basic YWMyY2M2ZDctY2RiOC00NjZhLTg0ZmEtNzRmMTRkNDFiYzEyOjYwZmM3MjE5LTQ3MGYtNGVhZS04YzAxLTJkNTU4NWUxNzM2MQ=="
+      },
+      form: {
+        grant_type: "authorization_code",
+        scope: "accounts ",
+        code,
+        redirect_uri: "http://www.google.co.uk"
+      },
+      rejectUnauthorized: false
+    },
+    function (error: Error, response: Response, body: any) {
+      // console.log(error);
+      // console.log(response);
+      callback(error, JSON.parse(body));
+    }
+  );
+};
+const apiPRS = async (uri: String, token: String, callback: Function) => {
   await req.post(
     {
       uri,
@@ -77,4 +104,73 @@ const apiRS = async (uri: String, token: String, callback: Function) => {
     }
   );
 };
-export { apiAS, apiRS };
+
+const apiGRS = async (uri: String, callback: Function) => {
+  await req.get(
+    {
+      uri,
+      key,
+      cert,
+      headers: {
+        Authorization:
+          "Basic YWMyY2M2ZDctY2RiOC00NjZhLTg0ZmEtNzRmMTRkNDFiYzEyOjYwZmM3MjE5LTQ3MGYtNGVhZS04YzAxLTJkNTU4NWUxNzM2MQ=="
+      },
+
+      rejectUnauthorized: false
+    },
+    function (error: Error, response: Response, body: any) {
+      // console.log(error);
+      // console.log(response);
+      callback(error, body);
+    }
+  );
+};
+
+const openBank = async (
+  uri: String,
+  accessToken: String,
+  callback: Function
+) => {
+  await req.get(
+    {
+      uri,
+      key,
+      cert,
+      headers: {
+        "Content-Type": "application/json",
+        "x-fapi-financial-id": "c3c937c4-ab71-427f-9b59-4099b7c680ab",
+        "x-fapi-interaction-id": "771b5411-88c6-4b0a-b4ac-f1941d8f6291",
+        Authorization: "Bearer " + accessToken
+      },
+      rejectUnauthorized: false
+    },
+    function (error: Error, response: Response, body: any) {
+      // console.log(error);
+      // console.log(response);
+      callback(error, JSON.parse(body));
+    }
+  );
+};
+
+const openBankPublic = async (
+  uri: String,
+  accessToken: String,
+  callback: Function
+) => {
+  await req.get(
+    {
+      uri,
+      key,
+      cert,
+      headers: {},
+      rejectUnauthorized: false
+    },
+    function (error: Error, response: Response, body: any) {
+      // console.log(error);
+      // console.log(response);
+      callback(error, JSON.parse(body));
+    }
+  );
+};
+
+export { apiPAS, apiPRS, apiGRS, apiPASAC, openBank, openBankPublic };
