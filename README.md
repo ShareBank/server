@@ -14,13 +14,16 @@
 
 ## 🎥 Video
 
-[Video Pitch]()
+[Video Pitch](https://www.youtube.com/watch?v=7q2ezBvynA0)
 
-## 🌐 Web
-
-[LandingPage]()
+[Video Demo](https://www.youtube.com/watch?v=DJvg_R1STss)
 
 ## 📱 Mobile
+
+<p align="center">
+    <img alt="login" title="login" src=".github/login.png" width="45%" />
+    <img alt="dash" title="dash" src=".github/dash.png" width="45%" />
+</p>
 
 ## 📝 Documentação
 
